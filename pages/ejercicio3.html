@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - Operaciones con Matrices</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 3: Operaciones con Matrices 2x2</h1>
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color);">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Calculadora de Matrices</h2>
+            <div class="matrices-container">
+                <div class="form-group">
+                    <h4>Matriz A</h4>
+                    <input type="number" id="a00" value="10" class="form-control"> <input type="number" id="a01" value="5" class="form-control"><br>
+                    <input type="number" id="a10" value="8" class="form-control"> <input type="number" id="a11" value="2" class="form-control">
+                </div>
+                <div class="form-group">
+                    <h4>Matriz B</h4>
+                    <input type="number" id="b00" value="2" class="form-control"> <input type="number" id="b01" value="4" class="form-control"><br>
+                    <input type="number" id="b10" value="6" class="form-control"> <input type="number" id="b11" value="8" class="form-control">
+                </div>
+            </div>
+            <button id="btn-ejercicio3" class="btn">Calcular Operaciones</button>
+
+            <div id="resultArea" class="results-area" style="margin-top: 20px;">
+                <h3>Resultados:</h3>
+                <pre id="resultado-ejercicio3">Presiona el botón para calcular...</pre>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 - Equipo de Desarrollo</p>
+    </footer>
+
+    <script src="../scripts/ejercicio3.js" defer></script>
+</body>
+</html>

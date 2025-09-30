@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Matriz Identidad</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 4: Matriz Identidad</h1>
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color);">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Generador de Matriz Identidad</h2>
+            <div class="form-group">
+                <label for="tamano-matriz">Introduce el tamaño de la matriz cuadrada:</label>
+                <input type="number" id="tamano-matriz" min="1" value="4" class="form-control">
+            </div>
+            <button id="btn-ejercicio4" class="btn">Generar Matriz</button>
+            
+            <div id="resultArea" class="results-area" style="margin-top: 20px;">
+                <h3>Resultado:</h3>
+                <pre id="resultado-ejercicio4">Introduce un tamaño y presiona el botón...</pre>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 - Equipo de Desarrollo</p>
+    </footer>
+
+    <script src="../scripts/ejercicio4.js" defer></script>
+</body>
+</html>
