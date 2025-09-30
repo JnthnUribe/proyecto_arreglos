@@ -1,0 +1,199 @@
+/* --- ESTILOS GLOBALES --- */
+:root {
+    --primary-color: #007bff; /* Azul primario */
+    --primary-hover: #0056b3; /* Azul más oscuro */
+    --secondary-color: #6c757d; /* Gris secundario */
+    --background-color: #f8f9fa; /* Fondo claro */
+    --card-bg-color: #ffffff; /* Fondo de las tarjetas */
+    --text-color: #343a40; /* Texto principal oscuro */
+    --header-bg: #343a40; /* Fondo del encabezado */
+    --header-text: #ffffff; /* Texto del encabezado */
+    --border-radius: 8px; /* Bordes redondeados */
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Reseteo básico y configuración de fuente */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- ENCABEZADO Y PIE DE PÁGINA --- */
+.main-header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 2rem 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.main-header .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.main-footer {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 40px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 100;
+}
+
+/* --- ESTILOS PARA LA PÁGINA PRINCIPAL (INDEX) --- */
+.team-section {
+    margin-bottom: 3rem;
+}
+
+.team-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Para destacar los ejercicios más difíciles */
+.card.card-hard {
+    border-left: 5px solid #dc3545; /* Borde rojo para dificultad alta */
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card p {
+    flex-grow: 1; /* Empuja el botón hacia abajo */
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+/* --- COMPONENTES REUTILIZABLES (PARA LAS PÁGINAS DE EJERCICIOS) --- */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* Alinea el botón al inicio de la tarjeta */
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Estilos para los dashboards de cada ejercicio */
+.dashboard {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.dashboard h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Formularios y entradas */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Resultados y salidas */
+.results-area {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.results-area h3 {
+    margin-bottom: 15px;
+}
+
+pre {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre-wrap; /* Para que el texto no se desborde */
+    word-wrap: break-word;
+}
+

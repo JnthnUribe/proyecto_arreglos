@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 8 - Rotación de Matriz</title>
+    <!-- Ruta corregida a la hoja de estilos global -->
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        /* Estilos específicos para este dashboard */
+        .matrix-display-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap; /* Para que sea responsive en pantallas pequeñas */
+        }
+        .matrix-display {
+            flex: 1;
+            min-width: 300px;
+        }
+        #rotationControls button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 8: Rotación de Matriz N x N</h1>
+            <!-- Ruta corregida para volver al menú principal -->
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color); margin-top: 10px;">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Generador y Rotador de Matrices</h2>
+            <p>Define el tamaño, genera una matriz aleatoria y luego rótala.</p>
+
+            <div class="form-group">
+                <label for="rotationMatrixSize">Tamaño de la matriz (N x N):</label>
+                <input type="number" id="rotationMatrixSize" placeholder="Ej: 4" min="2">
+            </div>
+            <button id="generateRotationMatrixBtn" class="btn">Generar Matriz Aleatoria</button>
+
+            <div id="rotationControls" style="display: none; margin-top: 20px;">
+                <h3>Controles de Rotación:</h3>
+                <button id="rotate90Btn" class="btn">Rotar 90°</button>
+                <button id="rotate180Btn" class="btn">Rotar 180°</button>
+                <button id="rotate270Btn" class="btn">Rotar 270°</button>
+                <button id="resetBtn" class="btn" style="background-color: var(--secondary-color);">Reset</button>
+            </div>
+            
+            <div class="matrix-display-container">
+                <div id="originalMatrixDisplay" class="matrix-display" style="display: none;">
+                    <h3>Matriz Original:</h3>
+                    <pre id="originalMatrixOutput"></pre>
+                </div>
+                <div id="rotatedMatrixDisplay" class="matrix-display" style="display: none;">
+                    <h3>Matriz Rotada:</h3>
+                    <pre id="rotatedMatrixOutput"></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 - Equipo de Desarrollo</p>
+    </footer>
+
+    <!-- Ruta corregida al script de lógica, con 'defer' -->
+    <script src="../scripts/ejercicio8.js" defer></script>
+</body>
+</html>

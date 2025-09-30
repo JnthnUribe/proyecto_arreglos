@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 9 - Validador de Sudoku</title>
+    <!-- Ruta corregida a la hoja de estilos global -->
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        /* Estilos específicos para este dashboard */
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            width: fit-content;
+            margin: 20px auto;
+            border: 3px solid #343a40;
+        }
+        .sudoku-grid input {
+            width: clamp(35px, 5vw, 45px); /* Ancho responsive */
+            height: clamp(35px, 5vw, 45px); /* Alto responsive */
+            text-align: center;
+            font-size: 1.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0;
+            -moz-appearance: textfield; /* Oculta flechas en Firefox */
+        }
+        .sudoku-grid input::-webkit-outer-spin-button,
+        .sudoku-grid input::-webkit-inner-spin-button {
+            -webkit-appearance: none; /* Oculta flechas en Chrome/Safari */
+            margin: 0;
+        }
+        .sudoku-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .sudoku-actions button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 9: Validador de Sudoku 9x9</h1>
+            <!-- Ruta corregida para volver al menú principal -->
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color); margin-top: 10px;">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Introduce el Sudoku a validar</h2>
+            <p>Llena el tablero con números del 1 al 9. Las celdas vacías se tratarán como 0.</p>
+
+            <!-- El tablero de Sudoku se generará dinámicamente aquí -->
+            <div id="sudokuGrid" class="sudoku-grid"></div>
+
+            <div class="sudoku-actions">
+                <button id="validateSudokuBtn" class="btn">Validar Sudoku</button>
+                <button id="clearSudokuBtn" class="btn" style="background-color: var(--secondary-color);">Limpiar Tablero</button>
+            </div>
+
+            <!-- Área para mostrar el resultado de la validación -->
+            <div id="sudokuResult" class="results-area" style="display: none;">
+                <h3>Resultado de la Validación:</h3>
+                <p id="sudokuResultText"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 - Equipo de Desarrollo</p>
+    </footer>
+
+    <!-- Ruta corregida al script de lógica, con 'defer' -->
+    <script src="../scripts/ejercicio9.js" defer></script>
+</body>
+</html>
