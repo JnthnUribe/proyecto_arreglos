@@ -1,26 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- ELEMENTOS DEL DOM ---
     const sudokuGrid = document.getElementById('sudokuGrid');
     const validateBtn = document.getElementById('validateSudokuBtn');
     const clearBtn = document.getElementById('clearSudokuBtn');
     const resultArea = document.getElementById('sudokuResult');
     const resultText = document.getElementById('sudokuResultText');
 
-    // --- CLASE PARA VALIDAR EL SUDOKU ---
     class SudokuValidator {
         constructor(grid) {
             this.grid = grid;
         }
 
-        // Valida un set de 9 números (fila, columna o subgrid)
         isValidSet(set) {
-            const numbers = set.filter(num => num >= 1 && num <= 9); // Ignorar ceros
+            const numbers = set.filter(num => num >= 1 && num <= 9); 
             const uniqueNumbers = new Set(numbers);
-            return numbers.length === uniqueNumbers.size; // No debe haber duplicados
+            return numbers.length === uniqueNumbers.size; 
         }
 
-        // Valida todas las filas
         validateRows() {
             for (let i = 0; i < 9; i++) {
                 if (!this.isValidSet(this.grid[i])) {
@@ -30,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return { valid: true };
         }
 
-        // Valida todas las columnas
         validateColumns() {
             for (let j = 0; j < 9; j++) {
                 const column = [];
@@ -44,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return { valid: true };
         }
 
-        // Valida todas las sub-cuadrículas de 3x3
         validateSubgrids() {
             for (let startRow = 0; startRow < 9; startRow += 3) {
                 for (let startCol = 0; startCol < 9; startCol += 3) {
@@ -63,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return { valid: true };
         }
 
-        // Método principal que ejecuta todas las validaciones
         validate() {
             const rowResult = this.validateRows();
             if (!rowResult.valid) return rowResult;
@@ -78,8 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- LÓGICA DE LA INTERFAZ ---
-
     // Generar el tablero de 81 inputs
     function createSudokuGrid() {
         sudokuGrid.innerHTML = '';
@@ -89,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             input.min = 1;
             input.max = 9;
             
-            // Lógica para añadir bordes gruesos
+            
             const row = Math.floor(i / 9);
             const col = i % 9;
             if ((row + 1) % 3 === 0 && row < 8) input.style.borderBottom = '3px solid #343a40';
@@ -105,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let row = [];
 
         inputs.forEach((input, index) => {
-            // Un valor vacío o inválido se considera como 0
             const value = parseInt(input.value) || 0;
             row.push(value);
             if ((index + 1) % 9 === 0) {
@@ -126,7 +116,5 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#sudokuGrid input').forEach(input => input.value = '');
         resultArea.style.display = 'none';
     });
-
-    // Iniciar la creación del grid al cargar la página
     createSudokuGrid();
 });
