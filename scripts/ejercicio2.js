@@ -1,7 +1,5 @@
-// Espera a que el DOM esté completamente cargado para ejecutar el script
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- ELEMENTOS DEL DOM ---
     const matrixSizeInput = document.getElementById('matrixSize');
     const generateGridBtn = document.getElementById('generateGridBtn');
     const matrixGrid = document.getElementById('matrixGrid');
@@ -10,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultArea = document.getElementById('resultArea');
     const resultText = document.getElementById('resultText');
 
-    // --- CLASE PARA VALIDAR EL CUADRADO MÁGICO ---
     class MagicSquareValidator {
         constructor(matrix) {
             this.matrix = matrix;
@@ -18,13 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
             this.magicConstant = this.size * (this.size * this.size + 1) / 2;
         }
 
-        // Valida la suma de una fila
         validateRow(rowIndex) {
             const sum = this.matrix[rowIndex].reduce((acc, val) => acc + val, 0);
             return sum === this.magicConstant;
         }
 
-        // Valida la suma de una columna
         validateColumn(colIndex) {
             let sum = 0;
             for (let i = 0; i < this.size; i++) {
@@ -33,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return sum === this.magicConstant;
         }
 
-        // Valida la suma de la diagonal principal (top-left a bottom-right)
         validateMainDiagonal() {
             let sum = 0;
             for (let i = 0; i < this.size; i++) {
@@ -42,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return sum === this.magicConstant;
         }
 
-        // Valida la suma de la diagonal secundaria (top-right a bottom-left)
         validateAntiDiagonal() {
             let sum = 0;
             for (let i = 0; i < this.size; i++) {
@@ -51,16 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return sum === this.magicConstant;
         }
 
-        // Método principal que ejecuta todas las validaciones
         isMagic() {
-            // Validar filas y columnas
             for (let i = 0; i < this.size; i++) {
                 if (!this.validateRow(i) || !this.validateColumn(i)) {
                     return false;
                 }
             }
 
-            // Validar diagonales
             if (!this.validateMainDiagonal() || !this.validateAntiDiagonal()) {
                 return false;
             }
@@ -69,9 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- LÓGICA DE LA INTERFAZ ---
-
-    // Genera el grid de inputs basado en el tamaño N
     generateGridBtn.addEventListener('click', () => {
         const size = parseInt(matrixSizeInput.value);
         if (isNaN(size) || size < 2) {
@@ -86,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = document.createElement('input');
             input.type = 'number';
             input.classList.add('matrix-cell');
+            input.min = 1; // Solo números positivos mayores a cero
             matrixGrid.appendChild(input);
         }
 
@@ -93,19 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
         resultArea.style.display = 'none';
     });
 
-    // Valida la matriz cuando se presiona el botón
     validateBtn.addEventListener('click', () => {
         const size = parseInt(matrixSizeInput.value);
         const inputs = document.querySelectorAll('#matrixGrid input');
         const matrix = [];
 
-        // Convertir los inputs del DOM a una matriz 2D
         for (let i = 0; i < size; i++) {
             const row = [];
             for (let j = 0; j < size; j++) {
                 const value = parseInt(inputs[i * size + j].value);
-                if (isNaN(value)) {
-                    alert('Por favor, llena todas las casillas con números.');
+                if (isNaN(value) || value <= 0) {
+                    alert('Por favor, llena todas las casillas con números positivos mayores a cero.');
                     return;
                 }
                 row.push(value);
@@ -113,11 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
             matrix.push(row);
         }
 
-        // Usar la clase para validar
         const validator = new MagicSquareValidator(matrix);
         const isMagic = validator.isMagic();
         
-        // Mostrar el resultado
         resultArea.style.display = 'block';
         if (isMagic) {
             resultText.textContent = `¡Es un cuadrado mágico! La constante mágica es ${validator.magicConstant}.`;

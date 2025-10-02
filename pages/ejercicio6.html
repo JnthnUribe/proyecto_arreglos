@@ -1,15 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ejercicio 6 - Ventas por mes y día</title>
-	<link rel="stylesheet" href="../styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6 - Resumen de Ventas</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        .analysis-item {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .analysis-item strong {
+            color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
-	<h2>Ejercicio 6</h2>
-	<button onclick="mostrarResultadosEj6()">Mostrar resultados</button>
-	<div id="output6"></div>
-	<script src="../scripts/ejercicio6.js"></script>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 6: Resumen de Ventas Anuales</h1>
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color); margin-top: 10px;">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Análisis de Ventas</h2>
+            <p>Se utilizará una tabla de ventas predefinida (12 meses x 5 días). Presiona el botón para ver el análisis completo.</p>
+            
+            <button id="analyzeSalesBtn" class="btn">Analizar Ventas</button>
+            
+            <div id="resultArea" class="results-area" style="display: none;">
+                <h3>Tabla de Ventas (Meses vs Días):</h3>
+                <pre id="salesMatrixOutput"></pre>
+                
+                <h3 style="margin-top: 20px;">Análisis de Resultados:</h3>
+                <div id="analysisResults">
+                    <p class="analysis-item" id="minSaleResult"></p>
+                    <p class="analysis-item" id="maxSaleResult"></p>
+                    <p class="analysis-item" id="totalSaleResult"></p>
+                    
+                    <h4>Ventas Totales por Día de la Semana:</h4>
+                    <ul id="dailySalesList"></ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; Arreglos - Equipo de Desarrollo</p>
+    </footer>
+    <script src="../scripts/ejercicio6.js" defer></script>
 </body>
 </html>

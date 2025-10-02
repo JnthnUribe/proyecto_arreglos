@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ejercicio 7 - Calificaciones</title>
-	<link rel="stylesheet" href="../styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 7 - Análisis de Calificaciones</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-	<h2>Ejercicio 7</h2>
-	<button onclick="mostrarResultadosEj7()">Mostrar resultados</button>
-	<div id="output7"></div>
-	<script src="../scripts/ejercicio7.js"></script>
+    <header class="main-header">
+        <div class="container">
+            <h1>Ejercicio 7: Análisis de Calificaciones</h1>
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color); margin-top: 10px;">&larr; Volver al Menú</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard">
+            <h2>Análisis de Calificaciones de Alumnos</h2>
+            <p>Se procesará una tabla de calificaciones predefinida para obtener estadísticas detalladas. Presiona el botón para iniciar el análisis.</p>
+            
+            <button id="analyzeGradesBtn" class="btn">Analizar Calificaciones</button>
+
+            <div id="resultArea" class="results-area" style="display: none;">
+                <h3>Tabla de Calificaciones (Alumnos vs Parciales):</h3>
+                <pre id="gradesMatrixOutput"></pre>
+
+                <div class="results-container">
+                    <div>
+                        <h4 style="margin-top: 20px;">Promedio por Alumno:</h4>
+                        <ul id="studentAveragesList"></ul>
+                    </div>
+                    <div>
+                        <h4 style="margin-top: 20px;">Estadísticas Generales:</h4>
+                        <p id="highestAverage"></p>
+                        <p id="lowestAverage"></p>
+                        <p id="failingGradesCount"></p>
+
+                        <h4 style="margin-top: 20px;">Distribución de Promedios Finales:</h4>
+                        <ul id="gradeDistributionList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; Arreglos - Equipo de Desarrollo</p>
+    </footer>
+    <script src="../scripts/ejercicio7.js" defer></script>
 </body>
 </html>

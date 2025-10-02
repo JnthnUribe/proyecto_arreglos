@@ -1,35 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Clase dedicada a generar la matriz identidad
-    class MatrizIdentidad {
-        generar(tamano) {
-            // Validación de la entrada
-            if (!tamano || tamano <= 0 || !Number.isInteger(tamano)) {
-                return "Error: El tamaño debe ser un número entero positivo.";
-            }
 
-            const matriz = [];
-            for (let i = 0; i < tamano; i++) {
-                matriz[i] = [];
-                for (let j = 0; j < tamano; j++) {
-                    matriz[i][j] = (i === j) ? 1 : 0;
+    const generateIdentityBtn = document.getElementById('generateIdentityBtn');
+    const sizeInput = document.getElementById('identityMatrixSize');
+    const resultArea = document.getElementById('resultArea');
+    const identityMatrixOutput = document.getElementById('identityMatrixOutput');
+
+    const MAX_SIZE = 20;
+
+    class MatrixGenerator {
+        static createIdentity(size) {
+            const matrix = [];
+            for (let i = 0; i < size; i++) {
+                const row = [];
+                for (let j = 0; j < size; j++) {
+                    row.push(i === j ? 1 : 0);
                 }
+                matrix.push(row);
             }
-            return matriz;
+            return matrix;
         }
     }
 
-    // --- Lógica de Interacción con la Página ---
-    document.getElementById('btn-ejercicio4').addEventListener('click', () => {
-        const tamano = parseInt(document.getElementById('tamano-matriz').value);
-        const generador = new MatrizIdentidad();
-        const resultado = generador.generar(tamano);
+    generateIdentityBtn.addEventListener('click', () => {
+        const size = parseInt(sizeInput.value);
 
-        // Si el resultado es una matriz, la formateamos. Si no, mostramos el error.
-        if (Array.isArray(resultado)) {
-            const textoMatriz = resultado.map(fila => fila.join('\t')).join('\n');
-            document.getElementById('resultado-ejercicio4').textContent = textoMatriz;
-        } else {
-            document.getElementById('resultado-ejercicio4').textContent = resultado;
+        if (isNaN(size) || size < 1) {
+            alert('Por favor, introduce un tamaño válido (número mayor o igual a 1).');
+            return;
         }
+
+        if (size > MAX_SIZE) {
+            alert(`El tamaño es demasiado grande. Por favor, introduce un número menor o igual a ${MAX_SIZE} para evitar problemas de rendimiento.`);
+            return; 
+        }
+
+        const identityMatrix = MatrixGenerator.createIdentity(size);
+        
+        identityMatrixOutput.textContent = identityMatrix.map(row => row.join('  ')).join('\n');
+        resultArea.style.display = 'block';
     });
 });

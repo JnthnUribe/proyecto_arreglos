@@ -1,79 +1,77 @@
-// scripts/ejercicio5.js
-// Lógica para el ejercicio 5: matriz 5x10, sumas y promedios por fila y columna
+document.addEventListener('DOMContentLoaded', () => {
 
-function generarMatrizEj5() {
-    const filas = 5;
-    const columnas = 10;
-    let matriz = [];
-    let sumaFilas = [];
-    let promedioFilas = [];
-    let sumaColumnas = Array(columnas).fill(0);
-    let promedioColumnas = Array(columnas).fill(0);
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultArea = document.getElementById('resultArea');
+    const matrixOutput = document.getElementById('matrixOutput');
+    const arrayAOutput = document.getElementById('arrayAOutput');
+    const arrayBOutput = document.getElementById('arrayBOutput');
+    const arrayCOutput = document.getElementById('arrayCOutput');
+    const arrayDOutput = document.getElementById('arrayDOutput');
 
-    // Llenar matriz con números aleatorios del 1 al 9
-    for (let i = 0; i < filas; i++) {
-        matriz[i] = [];
-        let suma = 0;
-        for (let j = 0; j < columnas; j++) {
-            let num = Math.floor(Math.random() * 9) + 1;
-            matriz[i][j] = num;
-            suma += num;
-            sumaColumnas[j] += num;
+    class MatrixStatistics {
+        constructor(rows, cols) {
+            this.rows = rows;
+            this.cols = cols;
+            this.matrix = [];
+            this.arrayA = []; 
+            this.arrayB = []; 
+            this.arrayC = []; 
+            this.arrayD = []; 
         }
-        sumaFilas[i] = suma;
-        promedioFilas[i] = (suma / columnas).toFixed(2);
-    }
-    // Calcular promedios de columnas
-    for (let j = 0; j < columnas; j++) {
-        promedioColumnas[j] = (sumaColumnas[j] / filas).toFixed(2);
-    }
-    return {
-        matriz,
-        sumaFilas,
-        promedioFilas,
-        sumaColumnas,
-        promedioColumnas
-    };
-}
 
-function mostrarResultadosEj5() {
-    const datos = generarMatrizEj5();
-    const filas = datos.matriz.length;
-    const columnas = datos.matriz[0].length;
-    let html = '<h3>Matriz</h3>';
-    html += '<table class="result-table"><tbody>';
-    for (let i = 0; i < filas; i++) {
-        html += '<tr>';
-        for (let j = 0; j < columnas; j++) {
-            html += `<td>${datos.matriz[i][j]}</td>`;
+        generateMatrix() {
+            this.matrix = Array.from({ length: this.rows }, () => 
+                Array.from({ length: this.cols }, () => Math.floor(Math.random() * 100) + 1)
+            );
         }
-        html += '</tr>';
-    }
-    html += '</tbody></table>';
 
-    // Tabla de sumas y promedios por fila (A y B)
-    html += '<table class="result-table"><tr><th>A</th><th>B</th></tr>';
-    for (let i = 0; i < filas; i++) {
-        html += `<tr><td>${datos.sumaFilas[i]}</td><td>${datos.promedioFilas[i]}</td></tr>`;
-    }
-    html += '</table>';
+        calculateRowStats() {
+            this.arrayA = [];
+            this.arrayB = [];
+            this.matrix.forEach(row => {
+                const sum = row.reduce((acc, val) => acc + val, 0);
+                this.arrayA.push(sum);
+                this.arrayB.push(sum / this.cols);
+            });
+        }
 
-    // Tabla de sumas y promedios por columna (C y D)
-    html += '<table class="result-table"><tr>';
-    for (let j = 0; j < columnas; j++) {
-        html += `<th>C${j+1}</th>`;
+        calculateColumnStats() {
+            this.arrayC = [];
+            this.arrayD = [];
+            for (let j = 0; j < this.cols; j++) {
+                let colSum = 0;
+                for (let i = 0; i < this.rows; i++) {
+                    colSum += this.matrix[i][j];
+                }
+                this.arrayC.push(colSum);
+                this.arrayD.push(colSum / this.rows);
+            }
+        }
+        
+        run() {
+            this.generateMatrix();
+            this.calculateRowStats();
+            this.calculateColumnStats();
+        }
     }
-    html += '</tr><tr>';
-    for (let j = 0; j < columnas; j++) {
-        html += `<td>${datos.sumaColumnas[j]}</td>`;
-    }
-    html += '</tr><tr>';
-    for (let j = 0; j < columnas; j++) {
-        html += `<td>${datos.promedioColumnas[j]}</td>`;
-    }
-    html += '</tr></table>';
+    
 
-    document.getElementById('output').innerHTML = html;
-}
+    function formatMatrix(matrix) {
+        return matrix.map(row => 
+            row.map(cell => String(cell).padStart(4, ' ')).join('')
+        ).join('\n');
+    }
+    
+    calculateBtn.addEventListener('click', () => {
+        const stats = new MatrixStatistics(5, 10);
+        stats.run();
 
-// Para usar en el HTML: <button onclick="mostrarResultadosEj5()">Generar matriz y calcular</button>
+        matrixOutput.textContent = formatMatrix(stats.matrix);
+        arrayAOutput.textContent = stats.arrayA.join('\n');
+        arrayBOutput.textContent = stats.arrayB.map(avg => avg.toFixed(2)).join('\n');
+        arrayCOutput.textContent = stats.arrayC.join('  ');
+        arrayDOutput.textContent = stats.arrayD.map(avg => avg.toFixed(2)).join('  ');
+
+        resultArea.style.display = 'block';
+    });
+});

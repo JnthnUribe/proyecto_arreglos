@@ -9,29 +9,31 @@
 <body>
     <header class="main-header">
         <div class="container">
-            <h1>Ejercicio 1: Contador de Ceros</h1>
-            <a href="../index.html" class="btn" style="background-color: var(--secondary-color);">&larr; Volver al Menú</a>
+            <h1>Ejercicio 1: Contador de Ceros por Renglón</h1>
+            <a href="../index.html" class="btn" style="background-color: var(--secondary-color); margin-top: 10px;">&larr; Volver al Menú</a>
         </div>
     </header>
 
     <main class="container">
         <div class="dashboard">
-            <h2>Análisis de Matriz</h2>
-            <p><strong>Matriz Original:</strong></p>
-            <pre id="matriz-original-1"></pre>
-            <button id="btn-ejercicio1" class="btn">Calcular Ceros</button>
+            <h2>Conteo de Ceros en una Matriz Predefinida</h2>
+            <p>Se utilizará la matriz del ejercicio. Presiona el botón para contar cuántos ceros aparecen en cada fila.</p>
             
-            <div id="resultArea" class="results-area" style="margin-top: 20px;">
-                <h3>Resultado:</h3>
-                <pre id="resultado-ejercicio1">Presiona el botón para calcular...</pre>
+            <button id="countZerosBtn" class="btn">Calcular Ceros</button>
+            
+            <div id="resultArea" class="results-area" style="display: none;">
+                <h3>Matriz Original:</h3>
+                <pre id="matrixOutput"></pre>
+                
+                <h3 style="margin-top: 20px;">Resultados del Conteo:</h3>
+                <ul id="resultsList"></ul>
             </div>
         </div>
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2025 - Equipo de Desarrollo</p>
+        <p>&copy; Arreglos - Equipo de Desarrollo</p>
     </footer>
-
     <script src="../scripts/ejercicio1.js" defer></script>
 </body>
 </html>

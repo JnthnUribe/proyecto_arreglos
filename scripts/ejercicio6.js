@@ -1,77 +1,73 @@
-// scripts/ejercicio6.js
-// Lógica para el ejercicio 6: ventas por mes y día de la semana
+document.addEventListener('DOMContentLoaded', () => {
 
-function mostrarResultadosEj6() {
-    // Datos de la tabla (12 meses x 5 días)
-    const ventas = [
-        [5, 16, 10, 12, 24],
-        [40, 55, 10, 11, 18],
-        [15, 41, 78, 14, 51],
-        [35, 22, 81, 15, 12],
-        [50, 12, 71, 10, 20],
-        [70, 40, 60, 28, 22],
-        [50, 50, 50, 36, 25],
-        [40, 70, 40, 11, 20],
-        [20, 20, 30, 12, 18],
-        [10, 40, 32, 13, 16],
-        [3, 24, 24, 15, 82],
-        [40, 46, 15, 46, 22]
+    const salesData = [
+        [5, 16, 10, 12, 24], [40, 55, 10, 11, 18], [15, 41, 78, 14, 51],
+        [35, 22, 81, 15, 12], [50, 12, 71, 10, 20], [70, 40, 60, 28, 22],
+        [50, 50, 50, 36, 25], [40, 70, 40, 11, 20], [20, 20, 30, 12, 18],
+        [10, 40, 32, 13, 16], [50, 3, 24, 15, 82],  [40, 46, 15, 46, 22]
     ];
-    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
-    // a) Declarar e inicializar el arreglo (ya hecho arriba)
+    const analyzeSalesBtn = document.getElementById('analyzeSalesBtn');
+    const resultArea = document.getElementById('resultArea');
+    const salesMatrixOutput = document.getElementById('salesMatrixOutput');
+    const minSaleResult = document.getElementById('minSaleResult');
+    const maxSaleResult = document.getElementById('maxSaleResult');
+    const totalSaleResult = document.getElementById('totalSaleResult');
+    const dailySalesList = document.getElementById('dailySalesList');
 
-    // b) Menor venta y su posición
-    let min = ventas[0][0], minMes = 0, minDia = 0;
-    let max = ventas[0][0], maxMes = 0, maxDia = 0;
-    let total = 0;
-    let ventaPorDia = Array(dias.length).fill(0);
+    class SalesAnalyzer {
+        constructor(data) {
+            this.data = data;
+            this.minSale = { value: Infinity, month: -1, day: -1 };
+            this.maxSale = { value: -Infinity, month: -1, day: -1 };
+            this.totalSale = 0;
+            this.dailySales = Array(data[0].length).fill(0);
+        }
 
-    for (let i = 0; i < ventas.length; i++) {
-        for (let j = 0; j < ventas[i].length; j++) {
-            let v = ventas[i][j];
-            total += v;
-            ventaPorDia[j] += v;
-            if (v < min) {
-                min = v;
-                minMes = i;
-                minDia = j;
-            }
-            if (v > max) {
-                max = v;
-                maxMes = i;
-                maxDia = j;
+        analyze() {
+            for (let i = 0; i < this.data.length; i++) { // i = month
+                for (let j = 0; j < this.data[i].length; j++) { // j = day
+                    const sale = this.data[i][j];
+                    this.totalSale += sale;
+                    this.dailySales[j] += sale;
+
+                    if (sale < this.minSale.value) {
+                        this.minSale = { value: sale, month: i, day: j };
+                    }
+                    if (sale > this.maxSale.value) {
+                        this.maxSale = { value: sale, month: i, day: j };
+                    }
+                }
             }
         }
     }
 
-    // Construir tabla de ventas
-    let html = '<h3>Tabla de Ventas</h3>';
-    html += '<table class="result-table"><thead><tr><th>Mes/Día</th>';
-    for (let d of dias) html += `<th>${d}</th>`;
-    html += '</tr></thead><tbody>';
-    for (let i = 0; i < ventas.length; i++) {
-        html += `<tr><td>${meses[i]}</td>`;
-        for (let j = 0; j < dias.length; j++) {
-            html += `<td>${ventas[i][j]}</td>`;
-        }
-        html += '</tr>';
+    
+    function formatCurrency(value) {
+        return value.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
     }
-    html += '</tbody></table>';
 
-    // b) Menor venta
-    html += `<p><b>Menor venta:</b> $${min}.00 en <b>${meses[minMes]}</b>, <b>${dias[minDia]}</b></p>`;
-    // c) Mayor venta
-    html += `<p><b>Mayor venta:</b> $${max}.00 en <b>${meses[maxMes]}</b>, <b>${dias[maxDia]}</b></p>`;
-    // d) Venta total
-    html += `<p><b>Venta total del año:</b> $${total}.00</p>`;
-    // e) Venta por día
-    html += '<h4>Venta por día de la semana:</h4><ul>';
-    for (let j = 0; j < dias.length; j++) {
-        html += `<li><b>${dias[j]}:</b> $${ventaPorDia[j]}.00</li>`;
-    }
-    html += '</ul>';
+    analyzeSalesBtn.addEventListener('click', () => {
+        const analyzer = new SalesAnalyzer(salesData);
+        analyzer.analyze();
 
-    document.getElementById('output6').innerHTML = html;
-}
+        salesMatrixOutput.textContent = salesData.map(row => 
+            row.map(cell => String(cell).padStart(5, ' ')).join('')
+        ).join('\n');
+
+        minSaleResult.innerHTML = `<strong>Menor venta:</strong> ${formatCurrency(analyzer.minSale.value)} (Mes: ${months[analyzer.minSale.month]}, Día: ${days[analyzer.minSale.day]})`;
+        maxSaleResult.innerHTML = `<strong>Mayor venta:</strong> ${formatCurrency(analyzer.maxSale.value)} (Mes: ${months[analyzer.maxSale.month]}, Día: ${days[analyzer.maxSale.day]})`;
+        totalSaleResult.innerHTML = `<strong>Venta total anual:</strong> ${formatCurrency(analyzer.totalSale)}`;
+
+        dailySalesList.innerHTML = ''; // Limpiar lista
+        analyzer.dailySales.forEach((total, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${days[index]}: ${formatCurrency(total)}`;
+            dailySalesList.appendChild(li);
+        });
+
+        resultArea.style.display = 'block';
+    });
+});
